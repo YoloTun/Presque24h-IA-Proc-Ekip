@@ -8,7 +8,7 @@ namespace Interface_communication;
 public class Connexion
 {
     #region Attributs
-    private TcpClient? _client;
+    private TcpClient? client;
     private StreamReader fluxEntrant;
     private StreamWriter fluxSortant;
     #endregion
@@ -21,15 +21,15 @@ public class Connexion
     #region Méthodes
     public void ConnexionServeur()
     {
-        _client = new TcpClient("127.0.0.1", 1234);
+        client = new TcpClient("127.0.0.1", 1234);
     }
 
     public void CreationFlux()
     {
-        if (_client == null)
+        if (client == null)
             ConnexionServeur(); //TODO à tester, c'est une modification effectuée pour le toolkit (un peu plus propre que ce qui existait avant)
-        fluxEntrant = new StreamReader(_client.GetStream());
-        fluxSortant = new StreamWriter(_client.GetStream());
+        fluxEntrant = new StreamReader(client.GetStream());
+        fluxSortant = new StreamWriter(client.GetStream());
         fluxSortant.AutoFlush = true;
     }
 
@@ -53,7 +53,7 @@ public class Connexion
 
     public void Stop()
     {
-        _client?.Close();
+        client?.Close();
     }
     #endregion
 
