@@ -27,4 +27,16 @@ public class Observable
             observer.ReceptionMessage(message, this);
         }
     }
+
+    /// <summary>
+    /// Envoie un ordre à tous les observateurs abonnés
+    /// </summary>
+    /// <param name="ordre">Ordre à envoyer aux observateurs</param>
+    protected void SendOrdre(Ordre ordre)
+    {
+        foreach (var observer in observers)
+        {
+            observer.ReceptionOrdre(ordre, this);
+        }
+    }
 }

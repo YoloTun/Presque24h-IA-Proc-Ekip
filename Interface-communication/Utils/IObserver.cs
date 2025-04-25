@@ -11,4 +11,11 @@ public interface IObserver
     /// <param name="message">Message envoyé par un observable</param>
     /// <param name="emetteur">Emetteur du message</param>
     public void ReceptionMessage(string message, Observable emetteur);
+
+    /// <summary>
+    /// Reçoit et traite un ordre envoyé par un observable
+    /// </summary>
+    /// <param name="ordre">Ordre envoyé par un observable</param>
+    /// <param name="emetteur">Emetteur de l'ordre</param>
+    public void ReceptionOrdre(Ordre ordre, Observable emetteur);
 }
