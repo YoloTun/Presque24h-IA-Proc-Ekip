@@ -20,12 +20,12 @@ public abstract class IntelligenceArtificielle : Observable
     /// On se renseigne sur l'état du jeu
     /// </summary>
     /// <returns>Liste d'ordres pour récupérer des informations, ceux-ci ne doivent pas impacter le jeu</returns>
-    public abstract List<Ordre> Renseignementation();
+    public abstract List<Message> Renseignementation();
     // TODO Ajouter un système pour apporter à l'IA les informations qu'elle demande
 
     /// <summary>
     /// On définit la stratégie du tour courant
     /// </summary>
     /// <returns>Liste d'ordres d'action à prendre ce tour</returns>
-    public abstract List<Ordre> Strategisation();
+    public abstract List<Message> Strategisation();
 }

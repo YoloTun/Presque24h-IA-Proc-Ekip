@@ -10,13 +10,14 @@ namespace Interface_communication;
 public class Orchestrateur(IntelligenceArtificielle ia) : IObserver
 {
     private readonly IntelligenceArtificielle ia = ia;
+    private int tourActuel = 0;
 
     public void ReceptionMessage(string message, Observable emetteur)
     {
         throw new NotImplementedException();
     }
 
-    public void ReceptionOrdre(Ordre ordre, Observable emetteur)
+    public void ReceptionOrdre(Message message, Observable emetteur)
     {
         throw new NotImplementedException();
     }
@@ -26,16 +27,43 @@ public class Orchestrateur(IntelligenceArtificielle ia) : IObserver
     /// </summary>
     public void Tour()
     {
-        var ordresInfos = ia.Renseignementation();
-        // TODO Apporter à l'IA les informations récupérées
-
-        var ordresActions = ia.Strategisation();
-        // TODO Appliquer les ordres transmis ici
+        tourActuel++;
+        RecuperationInfos();
+        Strategie();
     }
 
-    private void EnvoyerOrdre(Ordre ordre)
+    private void RecuperationInfos()
     {
-        Connexion.Instance.EnvoyerMessage(ordre.MessageServeur);
-        Logger.Log(NiveauxLog.Info, $"Envoi d'un ordre : {ordre.MessageServeur}");
+        // On récupère les ordres de l'IA pour obtenir les informations du jeu
+        Logger.Log(NiveauxLog.Info, ">>> Début de renseignementation de l'IA");
+        var ordresInfos = ia.Renseignementation();
+        Logger.Log(NiveauxLog.Info, "<<< Fin de renseignementation de l'IA");
+        // TODO Apporter à l'IA les informations récupérées
+    }
+
+    private void Strategie()
+    {
+        // On fait réfléchir l'IA avec les informations qu'elle a obtenu et on récupère ses ordres
+        Logger.Log(NiveauxLog.Info, ">>> Début de stratégisation de l'IA");
+        var ordresActions = ia.Strategisation();
+        Logger.Log(NiveauxLog.Info, "<<< Fin de stratégisation de l'IA");
+        
+        // On applique la stratégie donnée par l'IA
+        Logger.Log(NiveauxLog.Info, ">>> Application de la stratégie de l'IA");
+        EnvoyerListeMessages(ordresActions);
+        Logger.Log(NiveauxLog.Info, "<<< Fin de l'application de la stratégie de l'IA");
+    }
+
+    private void EnvoyerMessage(Message message)
+    {
+        Connexion.Instance.EnvoyerMessage(message.MessageServeur);
+    }
+
+    private void EnvoyerListeMessages(List<Message> messagesList)
+    {
+        foreach (var message in messagesList)
+        {
+            EnvoyerMessage(message);
+        }
     }
 }

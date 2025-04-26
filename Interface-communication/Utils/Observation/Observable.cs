@@ -31,12 +31,12 @@ public class Observable
     /// <summary>
     /// Envoie un ordre à tous les observateurs abonnés
     /// </summary>
-    /// <param name="ordre">Ordre à envoyer aux observateurs</param>
-    protected void SendOrdre(Ordre ordre)
+    /// <param name="message">Ordre à envoyer aux observateurs</param>
+    protected void SendOrdre(Message message)
     {
         foreach (var observer in observers)
         {
-            observer.ReceptionOrdre(ordre, this);
+            observer.ReceptionOrdre(message, this);
         }
     }
 }
