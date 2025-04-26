@@ -1,4 +1,5 @@
 using Interface_communication.Utils;
+using Interface_communication.Utils.Logging;
 
 namespace Interface_communication;
 
@@ -29,5 +30,11 @@ public class Orchestrateur(IntelligenceArtificielle ia) : IObserver
 
         var ordresActions = ia.Strategisation();
         // TODO Appliquer les ordres transmis ici
+    }
+
+    private void EnvoyerOrdre(Ordre ordre)
+    {
+        Connexion.Instance.EnvoyerMessage(ordre.MessageServeur);
+        Logger.Log(NiveauxLog.Info, $"Envoi d'un ordre : {ordre.MessageServeur}");
     }
 }
