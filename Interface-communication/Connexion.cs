@@ -25,7 +25,7 @@ public class Connexion
     #region Méthodes
     private void ConnexionServeur()
     {
-        client = new TcpClient("127.0.0.1", 1234);
+        client = new TcpClient(Config.HostnameServeur, Config.PortServeur);
     }
 
     /// <summary>
@@ -49,14 +49,14 @@ public class Connexion
     {
         var message = fluxEntrant.ReadLine();
         message ??= "";
-        Logger.Log(NiveauxLog.Action, $"<< réception message : {message}");
+        Logger.Log(NiveauxLog.Action, $"<-- réception message : {message}");
         return message;
     }
 
     public void EnvoyerMessage(string message)
     {
         fluxSortant.WriteLine(message);
-        Logger.Log(NiveauxLog.Action, $">> envoi message : {message}");
+        Logger.Log(NiveauxLog.Action, $"--> envoi message : {message}");
     }
 
     public void Stop()
