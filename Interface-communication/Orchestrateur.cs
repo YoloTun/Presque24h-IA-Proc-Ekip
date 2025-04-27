@@ -28,8 +28,10 @@ public class Orchestrateur(IntelligenceArtificielle ia) : IObserver
     public void Tour()
     {
         tourActuel++;
+        Logger.Log(NiveauxLog.Info, $"--- DÉBUT DU TOUR {tourActuel} ---");
         RecuperationInfos();
         Strategie();
+        Logger.Log(NiveauxLog.Info, $"--- FIN DU TOUR {tourActuel} ---");
     }
 
     private void RecuperationInfos()
