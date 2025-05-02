@@ -1,4 +1,4 @@
-﻿namespace Interface_communication;
+﻿namespace Interface_communication.Utils;
 
 /// <summary>
 /// Permet de stocker et d'accéder tous les éléments de configuration liés au toolkit
