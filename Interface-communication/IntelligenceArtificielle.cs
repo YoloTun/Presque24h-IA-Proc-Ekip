@@ -7,7 +7,7 @@ namespace Interface_communication;
 /// Classe abstraite représentant une intelligence artificielle pour un jeu.
 /// Hérite d'un observateur permettant d'interagir avec d'autres composants de l'application.
 /// </summary>
-public abstract class IntelligenceArtificielle : Observable
+public abstract class IntelligenceArtificielle
 {
     private Orchestrateur orchestrateur;
 

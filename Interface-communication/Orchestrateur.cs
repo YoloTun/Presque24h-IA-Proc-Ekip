@@ -7,20 +7,10 @@ namespace Interface_communication;
 /// <summary>
 /// Orchestre les actions de l'IA
 /// </summary>
-public class Orchestrateur(IntelligenceArtificielle ia) : IObserver
+public class Orchestrateur(IntelligenceArtificielle ia)
 {
     private readonly IntelligenceArtificielle ia = ia;
     private int tourActuel = 0;
-
-    public void ReceptionMessage(string message, Observable emetteur)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ReceptionOrdre(Message message, Observable emetteur)
-    {
-        throw new NotImplementedException();
-    }
 
     /// <summary>
     /// Exécute un tour de jeu
