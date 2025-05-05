@@ -1,4 +1,4 @@
-namespace Interface_communication.Utils;
+namespace Interface_communication.Utils.Observation;
 
 /// <summary>
 /// Un observeur simple
@@ -15,7 +15,7 @@ public interface IObserver
     /// <summary>
     /// Reçoit et traite un ordre envoyé par un observable
     /// </summary>
-    /// <param name="ordre">Ordre envoyé par un observable</param>
+    /// <param name="message">Ordre envoyé par un observable</param>
     /// <param name="emetteur">Emetteur de l'ordre</param>
-    public void ReceptionOrdre(Ordre ordre, Observable emetteur);
+    public void ReceptionOrdre(Message message, Observable emetteur);
 }
