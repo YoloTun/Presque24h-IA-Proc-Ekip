@@ -1,3 +1,5 @@
+using Interface_communication.Utils;
+
 namespace Interface_communication;
 
 /// <summary>
@@ -7,11 +9,15 @@ public class ReponseServeur
 {
     private Message message;
     private string reponse;
+    private string[] arguments; // Les arguments de la réponse
     
-    public ReponseServeur(Message message, string reponse)
+    public ReponseServeur(Message message, string reponseBrute)
     {
         this.message = message;
-        this.reponse = reponse;
+        
+        var reponseParsee = reponseBrute.Split(Config.ArgumentsDelimiter);
+        this.reponse = reponseParsee[0];
+        this.arguments = reponseParsee.Skip(1).ToArray();
     }
 
     /// <summary>
@@ -23,4 +29,6 @@ public class ReponseServeur
     /// Réponse du serveur
     /// </summary>
     public string Reponse => reponse;
+    
+    public string[] Arguments => (string[])arguments.Clone();
 }
