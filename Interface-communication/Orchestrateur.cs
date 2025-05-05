@@ -12,6 +12,7 @@ public class Orchestrateur(IntelligenceArtificielle ia)
     private readonly IntelligenceArtificielle ia = ia;
     private int tourActuel = 0;
 
+    public Orchestrateur(IntelligenceArtificielle ia) : this()
     /// <summary>
     /// Exécute un tour de jeu
     /// </summary>

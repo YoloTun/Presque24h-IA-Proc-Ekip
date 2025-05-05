@@ -5,12 +5,14 @@ namespace Interface_communication;
 
 /// <summary>
 /// Classe abstraite représentant une intelligence artificielle pour un jeu.
-/// Hérite d'un observateur permettant d'interagir avec d'autres composants de l'application.
 /// </summary>
 public abstract class IntelligenceArtificielle
 {
     private Orchestrateur orchestrateur;
 
+    /// <summary>
+    /// Constructeur par défaut, doit être obligatoirement appelé par les sous-classes.
+    /// </summary>
     protected IntelligenceArtificielle()
     {
         orchestrateur = new Orchestrateur(this);
@@ -21,7 +23,6 @@ public abstract class IntelligenceArtificielle
     /// </summary>
     /// <returns>Liste d'ordres pour récupérer des informations, ceux-ci ne doivent pas impacter le jeu</returns>
     public abstract List<Message> Renseignementation();
-    // TODO Ajouter un système pour apporter à l'IA les informations qu'elle demande
 
     /// <summary>
     /// On définit la stratégie du tour courant
