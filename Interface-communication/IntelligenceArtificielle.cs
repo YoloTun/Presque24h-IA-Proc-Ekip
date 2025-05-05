@@ -26,6 +26,7 @@ public abstract class IntelligenceArtificielle
     /// <summary>
     /// On définit la stratégie du tour courant
     /// </summary>
+    /// <param name="infosJeu">Informations sur l'état du jeu fournies par le serveur (réponse à Renseignementation)</param>
     /// <returns>Liste d'ordres d'action à prendre ce tour</returns>
-    public abstract List<Message> Strategisation();
+    public abstract List<Message> Strategisation(List<ReponseServeur> infosJeu);
 }
