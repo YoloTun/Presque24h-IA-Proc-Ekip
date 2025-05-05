@@ -29,8 +29,10 @@ public class Orchestrateur(IntelligenceArtificielle ia)
         // On récupère les ordres de l'IA pour obtenir les informations du jeu
         Logger.Log(NiveauxLog.Info, ">>> Début de renseignementation de l'IA");
         var ordresInfos = ia.Renseignementation();
+        var reponsesRenseignementation = EnvoyerListeMessages(ordresInfos);
+
+        // TODO envoyer les réponses à l'IA
         Logger.Log(NiveauxLog.Info, "<<< Fin de renseignementation de l'IA");
-        // TODO Apporter à l'IA les informations récupérées
     }
 
     private void Strategie()
@@ -46,16 +48,15 @@ public class Orchestrateur(IntelligenceArtificielle ia)
         Logger.Log(NiveauxLog.Info, "<<< Fin de l'application de la stratégie de l'IA");
     }
 
-    private void EnvoyerMessage(Message message)
+    private ReponseServeur EnvoyerMessage(Message message)
     {
         Connexion.Instance.EnvoyerMessage(message.MessageServeur);
+        return new ReponseServeur(message, Connexion.Instance.RecevoirMessage());
     }
 
-    private void EnvoyerListeMessages(List<Message> messagesList)
+    private List<ReponseServeur> EnvoyerListeMessages(List<Message> messagesList)
     {
-        foreach (var message in messagesList)
-        {
-            EnvoyerMessage(message);
-        }
+        // On envoie chaque message et on reçoit le résultat
+        return messagesList.Select(message => EnvoyerMessage(message)).ToList();
     }
 }
