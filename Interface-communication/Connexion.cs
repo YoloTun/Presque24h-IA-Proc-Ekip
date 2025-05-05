@@ -7,7 +7,7 @@ namespace Interface_communication;
 /// <summary>
 /// Permet d'établir la connexion avec le serveur et d'échanger des messages avec lui 
 /// </summary>
-public class Connexion
+internal class Connexion
 {
     #region Attributs
     private TcpClient? client;

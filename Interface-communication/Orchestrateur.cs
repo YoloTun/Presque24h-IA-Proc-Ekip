@@ -1,18 +1,21 @@
-using Interface_communication.Utils;
 using Interface_communication.Utils.Logging;
-using Interface_communication.Utils.Observation;
 
 namespace Interface_communication;
 
 /// <summary>
 /// Orchestre les actions de l'IA
 /// </summary>
-public class Orchestrateur(IntelligenceArtificielle ia)
+internal class Orchestrateur()
 {
-    private readonly IntelligenceArtificielle ia = ia;
-    private int tourActuel = 0;
+    private readonly IntelligenceArtificielle ia;
+    private int tourActuel;
 
     public Orchestrateur(IntelligenceArtificielle ia) : this()
+    {
+        this.ia = ia;
+        tourActuel = 0;
+    }
+    
     /// <summary>
     /// Exécute un tour de jeu
     /// </summary>
@@ -38,7 +41,7 @@ public class Orchestrateur(IntelligenceArtificielle ia)
 
     private void Strategie(List<ReponseServeur> infosJeu)
     {
-        // On fait réfléchir l'IA avec les informations qu'elle a obtenu et on récupère ses ordres
+        // On fait réfléchir l'IA avec les informations qu'elle a obtenues et on récupère ses ordres
         Logger.Log(NiveauxLog.Info, ">>> Début de stratégisation de l'IA");
         var ordresActions = ia.Strategisation(infosJeu);
         Logger.Log(NiveauxLog.Info, "<<< Fin de stratégisation de l'IA");
@@ -58,6 +61,6 @@ public class Orchestrateur(IntelligenceArtificielle ia)
     private List<ReponseServeur> EnvoyerListeMessages(List<Message> messagesList)
     {
         // On envoie chaque message et on reçoit le résultat
-        return messagesList.Select(message => EnvoyerMessage(message)).ToList();
+        return messagesList.Select(EnvoyerMessage).ToList();
     }
 }
