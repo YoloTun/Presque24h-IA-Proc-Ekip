@@ -5,7 +5,7 @@
 /// </summary>
 public static class Config
 {
-    private static string argumentDelimiter = " ";
+    private static string argumentDelimiter = "|";
     private static string hostnameServeur = "127.0.0.1";
     private static int portServeur = 1234;
     
