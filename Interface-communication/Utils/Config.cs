@@ -8,6 +8,7 @@ public static class Config
     private static string argumentDelimiter = "|";
     private static string hostnameServeur = "127.0.0.1";
     private static int portServeur = 1234;
+    private static int nombrePhaseTour = 1;
     
     /// <summary>
     /// Caractère ou chaîne de caractère séparant les arguments dans les messages envoyés au serveur, par défaut il s'agit d'un espace
@@ -34,5 +35,14 @@ public static class Config
     {
         get => portServeur;
         set => portServeur = value;
+    }
+
+    /// <summary>
+    /// Nombre de phases dans un tour de jeu
+    /// </summary>
+    public static int NombrePhaseTour
+    {
+        get => nombrePhaseTour;
+        set => nombrePhaseTour = value;
     }
 }

@@ -17,17 +17,13 @@ public abstract class IntelligenceArtificielle
     {
         orchestrateur = new Orchestrateur(this);
     }
-    
-    /// <summary>
-    /// On se renseigne sur l'état du jeu
-    /// </summary>
-    /// <returns>Liste d'ordres pour récupérer des informations, ceux-ci ne doivent pas impacter le jeu</returns>
-    public abstract List<Message> Renseignementation();
 
     /// <summary>
-    /// On définit la stratégie du tour courant
+    /// Gère une phase d'un tour
     /// </summary>
-    /// <param name="infosJeu">Informations sur l'état du jeu fournies par le serveur (réponse à Renseignementation)</param>
-    /// <returns>Liste d'ordres d'action à prendre ce tour</returns>
-    public abstract List<Message> Strategisation(List<ReponseServeur> infosJeu);
+    /// <param name="tour">Numéro du tour courant (commence à 1)</param>
+    /// <param name="phase">Numéro de la phase courante (commence à 0)</param>
+    /// <param name="reponsesServeur"></param>
+    /// <returns></returns>
+    public abstract List<Message> PhaseTour(int tour, int phase, List<ReponseServeur> reponsesServeur);
 }
