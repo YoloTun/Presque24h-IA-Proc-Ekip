@@ -24,6 +24,12 @@ internal class Connexion
     public static Connexion Instance { get { instance ??= new Connexion(); return instance; }}
 
     #region Méthodes
+
+    private Connexion()
+    {
+        CreationFlux();
+    }
+    
     private void ConnexionServeur()
     {
         client = new TcpClient(Config.HostnameServeur, Config.PortServeur);
@@ -33,7 +39,7 @@ internal class Connexion
     /// Initialise les flux de communication avec le serveur en créant des objets
     /// StreamReader et StreamWriter associés au client connecté.
     /// </summary>
-    public void CreationFlux()
+    private void CreationFlux()
     {
         if (client == null)
             ConnexionServeur(); //TODO à tester, c'est une modification effectuée pour le toolkit (un peu plus propre que ce qui existait avant)
