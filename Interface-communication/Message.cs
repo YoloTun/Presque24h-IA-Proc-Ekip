@@ -18,6 +18,9 @@ public class Message
 
     private string PrintableArguments => string.Join(Config.ArgumentsDelimiter, arguments);
     
+    /// <summary>
+    /// Message formaté et prêt à être envoyé au serveur
+    /// </summary>
     public string MessageServeur => arguments.Count > 0 ? $"{messageServeur}{Config.ArgumentsDelimiter}{PrintableArguments}" : messageServeur;
 
     /// <summary>
