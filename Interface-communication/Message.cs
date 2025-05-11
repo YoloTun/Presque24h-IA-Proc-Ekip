@@ -28,4 +28,13 @@ public class Message
     {
         arguments.Add(argument);
     }
+
+    /// <summary>
+    /// Ajoute une liste d'arguments au message
+    /// </summary>
+    /// <param name="newArguments">Liste des arguments à ajouter</param>
+    public void AddArguments(string[] newArguments)
+    {
+        this.arguments.AddRange(newArguments);
+    }
 }
