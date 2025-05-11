@@ -35,11 +35,13 @@ internal class Orchestrateur()
 
     private void PhaseTour(int phase)
     {
+        Logger.Log(NiveauxLog.Info, $">>> Début de la phase {phase}");
+        
         List<Message> ordresListe = ia.PhaseTour(tourActuel, phase, dernieresReponsesServeur);
-        
         List<ReponseServeur> reponseServeur = EnvoyerListeMessages(ordresListe);
-        
         this.dernieresReponsesServeur = reponseServeur;
+        
+        Logger.Log(NiveauxLog.Info, $"<<< Fin de la phase {phase}");
     }
 
     private ReponseServeur EnvoyerMessage(Message message)
