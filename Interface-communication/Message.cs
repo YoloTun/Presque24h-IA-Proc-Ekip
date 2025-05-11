@@ -26,7 +26,7 @@ public class Message
     /// <summary>
     /// Ajoute un nouvel argument au message
     /// </summary>
-    /// <param name="argument">The argument to be added to the list.</param>
+    /// <param name="argument">L'argument à ajouter à la liste</param>
     public void AddArgument(string argument)
     {
         arguments.Add(argument);
