@@ -11,18 +11,45 @@ internal class Orchestrateur()
     private readonly IntelligenceArtificielle ia;
     private int tourActuel;
     private List<ReponseServeur> dernieresReponsesServeur;
+    private bool partieEnCours;
 
     public Orchestrateur(IntelligenceArtificielle ia) : this()
     {
         this.ia = ia;
         tourActuel = 0;
         dernieresReponsesServeur = [];
+        partieEnCours = false;
+    }
+
+    /// <summary>
+    /// Lance la partie
+    /// </summary>
+    public void Jouer()
+    {
+        Logger.Log(NiveauxLog.Info, "Lancement de la partie");
+        // Démarrage de la partie suivant le protocole fournit par l'IA
+        dernieresReponsesServeur = EnvoyerListeMessages(ia.GetProtocoleDemarragePartie());
+        partieEnCours = true;
+
+        while (partieEnCours)
+        {
+            Tour();
+        }
+        Connexion.Instance.Stop();
+    }
+
+    /// <summary>
+    /// Méthode à appeler pour mettre fin à la partie
+    /// </summary>
+    public void FinPartie()
+    {
+        partieEnCours = false;
     }
     
     /// <summary>
     /// Exécute un tour de jeu
     /// </summary>
-    public void Tour()
+    private void Tour()
     {
         tourActuel++;
         Logger.Log(NiveauxLog.Info, $"--- DÉBUT DU TOUR {tourActuel} ---");
