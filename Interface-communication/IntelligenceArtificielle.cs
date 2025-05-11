@@ -23,7 +23,7 @@ public abstract class IntelligenceArtificielle
     /// </summary>
     /// <param name="tour">Numéro du tour courant (commence à 1)</param>
     /// <param name="phase">Numéro de la phase courante (commence à 0)</param>
-    /// <param name="reponsesServeur"></param>
-    /// <returns></returns>
+    /// <param name="reponsesServeur">Liste des réponses du serveur depuis la phase précédente</param>
+    /// <returns>Prochains ordres à exécuter</returns>
     public abstract List<Message> PhaseTour(int tour, int phase, List<ReponseServeur> reponsesServeur);
 }
