@@ -26,4 +26,29 @@ public abstract class IntelligenceArtificielle
     /// <param name="reponsesServeur">Liste des réponses du serveur depuis la phase précédente</param>
     /// <returns>Prochains ordres à exécuter</returns>
     public abstract List<Message> PhaseTour(int tour, int phase, List<ReponseServeur> reponsesServeur);
+
+    /// <summary>
+    /// Protocole de démarrage de la partie (avant que l'enchaînement des tours ne commence)
+    /// </summary>
+    /// <returns>Liste des instructions à envoyer au serveur lors du démarrage de la partie</returns>
+    public List<Message> GetProtocoleDemarragePartie()
+    {
+        return [new Message("INSCRIRE")];
+    }
+
+    /// <summary>
+    /// Lance la partie
+    /// </summary>
+    public void Jouer()
+    {
+        this.orchestrateur.Jouer();
+    }
+
+    /// <summary>
+    /// Méthode à appeler pour terminer la partie
+    /// </summary>
+    protected void FinPartie()
+    {
+        this.orchestrateur.FinPartie();
+    }
 }

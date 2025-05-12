@@ -11,20 +11,51 @@ internal class Orchestrateur()
     private readonly IntelligenceArtificielle ia;
     private int tourActuel;
     private List<ReponseServeur> dernieresReponsesServeur;
+    private bool partieEnCours;
 
     public Orchestrateur(IntelligenceArtificielle ia) : this()
     {
         this.ia = ia;
         tourActuel = 0;
         dernieresReponsesServeur = [];
+        partieEnCours = false;
+    }
+
+    /// <summary>
+    /// Lance la partie
+    /// </summary>
+    public void Jouer()
+    {
+        Logger.Log(NiveauxLog.Info, "Lancement de la partie");
+        // Démarrage de la partie suivant le protocole fournit par l'IA
+        dernieresReponsesServeur = EnvoyerListeMessages(ia.GetProtocoleDemarragePartie());
+        partieEnCours = true;
+
+        while (partieEnCours)
+        {
+            Tour();
+        }
+        Connexion.Instance.Stop();
+    }
+
+    /// <summary>
+    /// Méthode à appeler pour mettre fin à la partie
+    /// </summary>
+    public void FinPartie()
+    {
+        partieEnCours = false;
     }
     
     /// <summary>
     /// Exécute un tour de jeu
     /// </summary>
-    public void Tour()
+    private void Tour()
     {
         tourActuel++;
+        Logger.Log(NiveauxLog.Info, $"Attente du tour {tourActuel}...");
+        
+        Connexion.Instance.RecevoirMessage();
+        
         Logger.Log(NiveauxLog.Info, $"--- DÉBUT DU TOUR {tourActuel} ---");
         for (int phase = 0; phase < Config.NombrePhaseTour; phase++)
         {
@@ -47,7 +78,13 @@ internal class Orchestrateur()
     private ReponseServeur EnvoyerMessage(Message message)
     {
         Connexion.Instance.EnvoyerMessage(message.MessageServeur);
-        return new ReponseServeur(message, Connexion.Instance.RecevoirMessage());
+        var reponse = new ReponseServeur(message, Connexion.Instance.RecevoirMessage());
+        if (reponse.EstErreur)
+        {
+            Logger.Log(NiveauxLog.Erreur, $"Erreur serveur : {reponse}");
+            throw new Exception($"Erreur serveur détectée lors de l'envoi du message : {reponse}");
+        }
+        return reponse;
     }
 
     private List<ReponseServeur> EnvoyerListeMessages(List<Message> messagesList)
