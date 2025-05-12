@@ -52,6 +52,10 @@ internal class Orchestrateur()
     private void Tour()
     {
         tourActuel++;
+        Logger.Log(NiveauxLog.Info, $"Attente du tour {tourActuel}...");
+        
+        Connexion.Instance.RecevoirMessage();
+        
         Logger.Log(NiveauxLog.Info, $"--- DÉBUT DU TOUR {tourActuel} ---");
         for (int phase = 0; phase < Config.NombrePhaseTour; phase++)
         {
@@ -74,7 +78,12 @@ internal class Orchestrateur()
     private ReponseServeur EnvoyerMessage(Message message)
     {
         Connexion.Instance.EnvoyerMessage(message.MessageServeur);
-        return new ReponseServeur(message, Connexion.Instance.RecevoirMessage());
+        var reponse = new ReponseServeur(message, Connexion.Instance.RecevoirMessage());
+        if (reponse.EstErreur)
+        {
+            Logger.Log(NiveauxLog.Erreur, $"Erreur serveur : {reponse}");
+        }
+        return reponse;
     }
 
     private List<ReponseServeur> EnvoyerListeMessages(List<Message> messagesList)

@@ -5,30 +5,22 @@ namespace Interface_communication;
 /// <summary>
 /// Réponse à un message envoyé par un serveur
 /// </summary>
-public class ReponseServeur
+public class ReponseServeur : MessageServeur
 {
-    private Message message;
-    private string reponse;
-    private string[] arguments; // Les arguments de la réponse
+    private Message messageIA;
     
-    public ReponseServeur(Message message, string reponseBrute)
+    internal ReponseServeur(Message messageIa, string reponseBrute) : base(reponseBrute)
     {
-        this.message = message;
-        
-        var reponseParsee = reponseBrute.Split(Config.ArgumentsDelimiter);
-        this.reponse = reponseParsee[0];
-        this.arguments = reponseParsee.Skip(1).ToArray();
+        this.messageIA = messageIa;
     }
 
     /// <summary>
     /// Message original
     /// </summary>
-    public Message Message => message;
+    public Message MessageIa => messageIA;
 
     /// <summary>
     /// Réponse du serveur
     /// </summary>
-    public string Reponse => reponse;
-    
-    public string[] Arguments => (string[])arguments.Clone();
+    public string Reponse => base.Message;
 }

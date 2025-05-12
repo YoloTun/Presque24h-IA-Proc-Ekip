@@ -5,19 +5,19 @@
 /// </summary>
 public static class Config
 {
+    #region Attributs
+
     private static string argumentDelimiter = "|";
     private static string hostnameServeur = "127.0.0.1";
     private static int portServeur = 1234;
     private static int nombrePhaseTour = 1;
+    private static string reponseServeurNonOk = "NOK";
+    private static string messageErreurServeur = "ERREUR";
     
-    /// <summary>
-    /// Caractère ou chaîne de caractère séparant les arguments dans les messages envoyés au serveur, par défaut il s'agit d'un espace
-    /// </summary>
-    public static string ArgumentsDelimiter
-    {
-        get => argumentDelimiter;
-        set => argumentDelimiter = value;
-    }
+    #endregion
+
+
+    #region Configuration serveur
 
     /// <summary>
     /// Hostname du serveur, par défaut "127.0.0.1"
@@ -36,7 +36,12 @@ public static class Config
         get => portServeur;
         set => portServeur = value;
     }
+    
+    #endregion
 
+
+    #region Mécaniques du jeu
+    
     /// <summary>
     /// Nombre de phases dans un tour de jeu
     /// </summary>
@@ -45,4 +50,29 @@ public static class Config
         get => nombrePhaseTour;
         set => nombrePhaseTour = value;
     }
+    
+    #endregion
+
+    #region Messages serveur
+    
+    /// <summary>
+    /// Caractère ou chaîne de caractère séparant les arguments dans les messages envoyés au serveur, par défaut il s'agit d'un espace
+    /// </summary>
+    public static string ArgumentsDelimiter
+    {
+        get => argumentDelimiter;
+        set => argumentDelimiter = value;
+    }
+
+    /// <summary>
+    /// Message envoyé par le serveur lorsqu'une erreur survient
+    /// </summary>
+    public static string MessageErreurServeur
+    {
+        get => messageErreurServeur;
+        set => messageErreurServeur = value;
+    }
+    
+    #endregion
+
 }
