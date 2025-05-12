@@ -35,17 +35,23 @@ public class Logger
     #region Méthodes
     private Logger(){}
 
+    /// <summary>
+    /// Active l'écriture des logs dans un fichier
+    /// </summary>
+    /// <param name="chemin">Chemin du fichier dans lequel écrire</param>
     public static void ActiveLogFichier(string chemin)
     {
         cheminLog = chemin;
         logFichier = true;
     }
 
+    /// <summary>
+    /// Désactive l'écriture des logs dans un fichier
+    /// </summary>
     public static void DesactiveLogFichier()
     {
         logFichier = false;
     }
-
     
     public static void Log(NiveauxLog niveauMessage, string message)
     {
