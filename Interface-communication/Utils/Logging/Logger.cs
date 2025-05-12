@@ -22,30 +22,30 @@ public class Logger
         get => niveauLog;
         set => niveauLog = value;
     }
-    
+
+    /// <summary>
+    /// Définis si les logs doivent s'afficher dans la console
+    /// </summary>
+    public static bool LogConsole
+    {
+        get => logConsole;
+        set => logConsole = value;
+    }
+
     #region Méthodes
     private Logger(){}
 
-    public void ActiveLogFichier(string chemin)
+    public static void ActiveLogFichier(string chemin)
     {
         cheminLog = chemin;
         logFichier = true;
     }
 
-    public void DesactiveLogFichier()
+    public static void DesactiveLogFichier()
     {
         logFichier = false;
     }
 
-    public void ActiveLogConsole()
-    {
-        logConsole = true;
-    }
-    
-    public void DesactiveLogConsole()
-    {
-        logConsole = false;
-    }
     
     public static void Log(NiveauxLog niveauMessage, string message)
     {
