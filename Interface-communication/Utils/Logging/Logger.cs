@@ -5,7 +5,7 @@ namespace Interface_communication.Utils.Logging;
 /// <summary>
 /// Un logger simple pour les besoins de l'application
 /// </summary>
-public class Logger
+public static class Logger
 {
     #region Attributs
     private static NiveauxLog niveauLog = NiveauxLog.Action;
@@ -33,7 +33,6 @@ public class Logger
     }
 
     #region Méthodes
-    private Logger(){}
 
     /// <summary>
     /// Active l'écriture des logs dans un fichier
