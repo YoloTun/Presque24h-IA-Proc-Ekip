@@ -82,6 +82,7 @@ internal class Orchestrateur()
         if (reponse.EstErreur)
         {
             Logger.Log(NiveauxLog.Erreur, $"Erreur serveur : {reponse}");
+            throw new Exception($"Erreur serveur détectée lors de l'envoi du message : {reponse}");
         }
         return reponse;
     }
