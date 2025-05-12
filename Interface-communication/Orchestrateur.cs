@@ -1,3 +1,4 @@
+using Interface_communication.Utils;
 using Interface_communication.Utils.Logging;
 
 namespace Interface_communication;
@@ -9,11 +10,13 @@ internal class Orchestrateur()
 {
     private readonly IntelligenceArtificielle ia;
     private int tourActuel;
+    private List<ReponseServeur> dernieresReponsesServeur;
 
     public Orchestrateur(IntelligenceArtificielle ia) : this()
     {
         this.ia = ia;
         tourActuel = 0;
+        dernieresReponsesServeur = [];
     }
     
     /// <summary>
@@ -23,33 +26,22 @@ internal class Orchestrateur()
     {
         tourActuel++;
         Logger.Log(NiveauxLog.Info, $"--- DÉBUT DU TOUR {tourActuel} ---");
-        var infosJeu = RecuperationInfos();
-        Strategie(infosJeu);
+        for (int phase = 0; phase < Config.NombrePhaseTour; phase++)
+        {
+            PhaseTour(phase);
+        }
         Logger.Log(NiveauxLog.Info, $"--- FIN DU TOUR {tourActuel} ---");
     }
 
-    private List<ReponseServeur> RecuperationInfos()
+    private void PhaseTour(int phase)
     {
-        // On récupère les ordres de l'IA pour obtenir les informations du jeu
-        Logger.Log(NiveauxLog.Info, ">>> Début de renseignementation de l'IA");
-        var ordresInfos = ia.Renseignementation();
-        var reponsesRenseignementation = EnvoyerListeMessages(ordresInfos);
-        Logger.Log(NiveauxLog.Info, "<<< Fin de renseignementation de l'IA");
-
-        return reponsesRenseignementation;
-    }
-
-    private void Strategie(List<ReponseServeur> infosJeu)
-    {
-        // On fait réfléchir l'IA avec les informations qu'elle a obtenues et on récupère ses ordres
-        Logger.Log(NiveauxLog.Info, ">>> Début de stratégisation de l'IA");
-        var ordresActions = ia.Strategisation(infosJeu);
-        Logger.Log(NiveauxLog.Info, "<<< Fin de stratégisation de l'IA");
+        Logger.Log(NiveauxLog.Info, $">>> Début de la phase {phase}");
         
-        // On applique la stratégie donnée par l'IA
-        Logger.Log(NiveauxLog.Info, ">>> Application de la stratégie de l'IA");
-        EnvoyerListeMessages(ordresActions);
-        Logger.Log(NiveauxLog.Info, "<<< Fin de l'application de la stratégie de l'IA");
+        List<Message> ordresListe = ia.PhaseTour(tourActuel, phase, dernieresReponsesServeur);
+        List<ReponseServeur> reponseServeur = EnvoyerListeMessages(ordresListe);
+        this.dernieresReponsesServeur = reponseServeur;
+        
+        Logger.Log(NiveauxLog.Info, $"<<< Fin de la phase {phase}");
     }
 
     private ReponseServeur EnvoyerMessage(Message message)

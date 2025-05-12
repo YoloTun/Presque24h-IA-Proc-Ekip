@@ -21,9 +21,22 @@ internal class Connexion
     /// Fournit un point d'entrée unique pour établir la connexion avec le serveur et
     /// échanger des messages via les flux de communication initialisés.
     /// </summary>
-    public static Connexion Instance { get { instance ??= new Connexion(); return instance; }}
+    public static Connexion Instance
+    {
+        get
+        {
+            instance ??= new Connexion(); 
+            return instance;
+        }
+    }
 
     #region Méthodes
+
+    private Connexion()
+    {
+        CreationFlux();
+    }
+    
     private void ConnexionServeur()
     {
         client = new TcpClient(Config.HostnameServeur, Config.PortServeur);
@@ -33,10 +46,10 @@ internal class Connexion
     /// Initialise les flux de communication avec le serveur en créant des objets
     /// StreamReader et StreamWriter associés au client connecté.
     /// </summary>
-    public void CreationFlux()
+    private void CreationFlux()
     {
         if (client == null)
-            ConnexionServeur(); //TODO à tester, c'est une modification effectuée pour le toolkit (un peu plus propre que ce qui existait avant)
+            ConnexionServeur();
         fluxEntrant = new StreamReader(client.GetStream());
         fluxSortant = new StreamWriter(client.GetStream());
         fluxSortant.AutoFlush = true;
@@ -50,14 +63,14 @@ internal class Connexion
     {
         var message = fluxEntrant.ReadLine();
         message ??= "";
-        Logger.Log(NiveauxLog.Action, $"<-- réception message : {message}");
+        Logger.Log(NiveauxLog.Action, $"<-- Message reçu : {message}");
         return message;
     }
 
     public void EnvoyerMessage(string message)
     {
         fluxSortant.WriteLine(message);
-        Logger.Log(NiveauxLog.Action, $"--> envoi message : {message}");
+        Logger.Log(NiveauxLog.Action, $"--> Message envoyé : {message}");
     }
 
     public void Stop()
