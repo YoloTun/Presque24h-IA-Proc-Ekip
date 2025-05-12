@@ -31,11 +31,19 @@ internal class Orchestrateur()
         dernieresReponsesServeur = EnvoyerListeMessages(ia.GetProtocoleDemarragePartie());
         partieEnCours = true;
 
+        MessageServeur dernierMessageServeur;
         while (partieEnCours)
         {
-            Tour();
+            tourActuel++;
+            do // On attend le signal du serveur pour démarrer le tour
+            {
+                Logger.Log(NiveauxLog.Info, $"Attente du tour {tourActuel}...");
+                dernierMessageServeur = AttendreMessageTransitionTour();
+            } while (partieEnCours && dernierMessageServeur.Message != Config.MessageDebutTour && dernierMessageServeur.Message != Config.MessageFinPartie); 
+            
+            if (partieEnCours)
+                Tour();
         }
-        Connexion.Instance.Stop();
     }
 
     /// <summary>
@@ -43,7 +51,9 @@ internal class Orchestrateur()
     /// </summary>
     public void FinPartie()
     {
+        Logger.Log(NiveauxLog.Info, "Fin de la partie");
         partieEnCours = false;
+        Connexion.Instance.Stop();
     }
     
     /// <summary>
@@ -51,14 +61,13 @@ internal class Orchestrateur()
     /// </summary>
     private void Tour()
     {
-        tourActuel++;
-        Logger.Log(NiveauxLog.Info, $"Attente du tour {tourActuel}...");
-        
-        Connexion.Instance.RecevoirMessage();
-        
         Logger.Log(NiveauxLog.Info, $"--- DÉBUT DU TOUR {tourActuel} ---");
         for (int phase = 0; phase < Config.NombrePhaseTour; phase++)
         {
+            if (!partieEnCours)
+            {
+                break; // Très inélégant mais plutôt optimal
+            }
             PhaseTour(phase);
         }
         Logger.Log(NiveauxLog.Info, $"--- FIN DU TOUR {tourActuel} ---");
@@ -91,5 +100,15 @@ internal class Orchestrateur()
     {
         // On envoie chaque message et on reçoit le résultat
         return messagesList.Select(EnvoyerMessage).ToList();
+    }
+
+    private MessageServeur AttendreMessageTransitionTour()
+    {
+        var message = new MessageServeur(Connexion.Instance.RecevoirMessage());
+        if (message.Message.Equals(Config.MessageFinPartie))
+        {
+            FinPartie();
+        }
+        return message;
     }
 }

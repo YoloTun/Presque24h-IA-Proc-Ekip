@@ -13,6 +13,8 @@ public static class Config
     private static int nombrePhaseTour = 1;
     private static string reponseServeurNonOk = "NOK";
     private static string messageErreurServeur = "ERREUR";
+    private static string messageFinPartie = "FIN";
+    private static string messageDebutTour = "DEBUT_TOUR";
     
     #endregion
 
@@ -72,7 +74,25 @@ public static class Config
         get => messageErreurServeur;
         set => messageErreurServeur = value;
     }
-    
+
+    /// <summary>
+    /// Message envoyé par le serveur à la fin de la partie
+    /// </summary>
+    public static string MessageFinPartie
+    {
+        get => messageFinPartie;
+        set => messageFinPartie = value;
+    }
+
+    /// <summary>
+    /// Message envoyé par le serveur au début d'un tour
+    /// </summary>
+    public static string MessageDebutTour
+    {
+        get => messageDebutTour;
+        set => messageDebutTour = value;
+    }
+
     #endregion
 
 }
