@@ -7,13 +7,20 @@ namespace Interface_communication;
 /// </summary>
 public class Message
 {
-    private readonly string messageServeur;
+    private readonly string verbeMessage;
     private readonly List<string> arguments;
 
-    public Message(string messageServeur)
+    /// <summary>
+    /// Instancie un message pouvant être envoyé au serveur
+    /// </summary>
+    /// <param name="verbeMessage">Ordre principal à envoyer au serveur (usage de constantes recommandé)</param>
+    /// <param name="arguments">Arguments du message, optionnels</param>
+    public Message(string verbeMessage, string[]? arguments = null)
     {
-        this.messageServeur = messageServeur;
-        arguments = [];
+        this.verbeMessage = verbeMessage;
+        if (arguments != null)
+            this.arguments = [..arguments]; // On initialise l'attribut à partir des éléments du tableau fournit 
+        else this.arguments = [];
     }
 
     private string PrintableArguments => string.Join(Config.ArgumentsDelimiter, arguments);
@@ -21,7 +28,7 @@ public class Message
     /// <summary>
     /// Message formaté et prêt à être envoyé au serveur
     /// </summary>
-    public string MessageServeur => arguments.Count > 0 ? $"{messageServeur}{Config.ArgumentsDelimiter}{PrintableArguments}" : messageServeur;
+    public string MessageServeur => arguments.Count > 0 ? $"{verbeMessage}{Config.ArgumentsDelimiter}{PrintableArguments}" : verbeMessage;
 
     /// <summary>
     /// Ajoute un nouvel argument au message
