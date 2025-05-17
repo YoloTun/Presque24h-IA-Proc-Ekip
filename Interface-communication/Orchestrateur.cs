@@ -39,7 +39,9 @@ internal class Orchestrateur()
             {
                 Logger.Log(NiveauxLog.Info, $"Attente du tour {tourActuel}...");
                 dernierMessageServeur = AttendreMessageTransitionTour();
-            } while (partieEnCours && dernierMessageServeur.Message != Config.MessageDebutTour && dernierMessageServeur.Message != Config.MessageFinPartie); 
+            } while (partieEnCours 
+                     && dernierMessageServeur.VerbeMessage != Config.MessageDebutTour 
+                     && dernierMessageServeur.VerbeMessage != Config.MessageFinPartie); 
             
             if (partieEnCours)
                 Tour();
@@ -105,7 +107,7 @@ internal class Orchestrateur()
     private MessageServeur AttendreMessageTransitionTour()
     {
         var message = new MessageServeur(Connexion.Instance.RecevoirMessage());
-        if (message.Message.Equals(Config.MessageFinPartie))
+        if (message.VerbeMessage.Equals(Config.MessageFinPartie))
         {
             FinPartie();
         }

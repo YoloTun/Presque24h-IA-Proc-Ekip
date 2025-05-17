@@ -22,5 +22,5 @@ public class ReponseServeur : MessageServeur
     /// <summary>
     /// Réponse du serveur
     /// </summary>
-    public string Reponse => base.Message;
+    public string Reponse => base.VerbeMessage;
 }
