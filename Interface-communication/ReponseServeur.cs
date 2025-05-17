@@ -12,6 +12,12 @@ public class ReponseServeur : MessageServeur
         this.messageIA = messageIa;
     }
 
+    internal ReponseServeur(Message messageIa, string reponseBrute, bool contientVerbe) : base(reponseBrute,
+        contientVerbe)
+    {
+        this.messageIA = messageIa;   
+    }
+
     /// <summary>
     /// Message original
     /// </summary>
