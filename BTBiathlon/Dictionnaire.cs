@@ -9,4 +9,5 @@ public static class Dictionnaire
     public static string Moi => "MOI";
     public static string Monstres => "MONSTRES";
     public static string Pioches => "PIOCHES";
+    public static string Degats => "DEGATS";
 }
