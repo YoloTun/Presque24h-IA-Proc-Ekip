@@ -9,14 +9,17 @@ public class Message
 {
     private readonly string verbeMessage;
     private readonly List<string> arguments;
+    private bool reponseContientVerbe;
 
     /// <summary>
     /// Instancie un message pouvant être envoyé au serveur
     /// </summary>
     /// <param name="verbeMessage">Ordre principal à envoyer au serveur (usage de constantes recommandé)</param>
     /// <param name="arguments">Arguments du message, optionnels</param>
-    public Message(string verbeMessage, string[]? arguments = null)
+    /// <param name="reponseContientVerbe">Indique si la réponse attendue (s'il y en a une) doit contenir un verbe ou non, vrai par défaut</param>
+    public Message(string verbeMessage, string[]? arguments = null, bool reponseContientVerbe = true)
     {
+        this.reponseContientVerbe = reponseContientVerbe;
         this.verbeMessage = verbeMessage;
         if (arguments != null)
             this.arguments = [..arguments]; // On initialise l'attribut à partir des éléments du tableau fournit 
@@ -32,6 +35,11 @@ public class Message
     /// Message formaté et prêt à être envoyé au serveur
     /// </summary>
     internal string MessageServeur => arguments.Count > 0 ? $"{verbeMessage}{Config.ArgumentsDelimiter}{PrintableArguments}" : verbeMessage;
+
+    /// <summary>
+    /// Indique si la réponse (si on en attends une) doit contenir un verbe
+    /// </summary>
+    public bool ReponseContientVerbe => reponseContientVerbe;
 
     /// <summary>
     /// Ajoute un nouvel argument au message
