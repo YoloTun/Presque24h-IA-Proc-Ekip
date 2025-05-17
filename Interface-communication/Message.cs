@@ -30,7 +30,7 @@ public class Message
     /// <summary>
     /// Message formaté et prêt à être envoyé au serveur
     /// </summary>
-    public string MessageServeur => arguments.Count > 0 ? $"{verbeMessage}{Config.ArgumentsDelimiter}{PrintableArguments}" : verbeMessage;
+    internal string MessageServeur => arguments.Count > 0 ? $"{verbeMessage}{Config.ArgumentsDelimiter}{PrintableArguments}" : verbeMessage;
 
     /// <summary>
     /// Ajoute un nouvel argument au message
