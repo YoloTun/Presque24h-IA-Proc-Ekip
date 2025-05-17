@@ -18,6 +18,11 @@ public class MessageServeur : Message
     public new string VerbeMessage => base.VerbeMessage;
 
     /// <summary>
+    /// Arguments du message du serveur
+    /// </summary>
+    public new string[] Arguments => base.Arguments.ToArray();
+
+    /// <summary>
     /// Instancie un message du serveur
     /// </summary>
     /// <param name="messageBrut">Chaîne de caractère brute envoyée par le serveur</param>
@@ -32,5 +37,16 @@ public class MessageServeur : Message
     {
         var messageParse = messageBrut.Split(Config.ArgumentsDelimiter);
         return messageParse.Skip(1).ToArray();
+    }
+
+    // On cache les méthodes d'ajout d'arguments : on ne veut pas qu'un message serveur puisse être modifié à posteriori
+    private new void AddArgument(string argument)
+    {
+        base.AddArgument(argument);
+    }
+    
+    private new void AddArguments(string[] newArguments)
+    {
+        base.AddArguments(newArguments);   
     }
 }

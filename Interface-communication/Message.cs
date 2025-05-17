@@ -26,6 +26,7 @@ public class Message
     private string PrintableArguments => string.Join(Config.ArgumentsDelimiter, arguments);
 
     protected string VerbeMessage => verbeMessage;
+    protected List<string> Arguments => arguments;
     
     /// <summary>
     /// Message formaté et prêt à être envoyé au serveur
