@@ -40,7 +40,7 @@ public class MessageServeur : Message
         return messageBrut.Split(Config.ArgumentsDelimiter)[0];
     }
 
-    private static string[] GetArguments(string messageBrut, bool contientVerbe = false)
+    private static string[] GetArguments(string messageBrut, bool contientVerbe = true)
     {
         var messageParse = messageBrut.Split(Config.ArgumentsDelimiter);
         int nbSkip = contientVerbe ? 1 : 0;
