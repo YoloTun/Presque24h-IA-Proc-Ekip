@@ -11,7 +11,6 @@ public static class Config
     private static string hostnameServeur = "127.0.0.1";
     private static int portServeur = 1234;
     private static int nombrePhaseTour = 1;
-    private static string reponseServeurNonOk = "NOK";
     private static string messageErreurServeur = "ERREUR";
     private static string messageFinPartie = "FIN";
     private static string messageDebutTour = "DEBUT_TOUR";

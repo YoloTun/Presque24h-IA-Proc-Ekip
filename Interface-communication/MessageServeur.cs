@@ -5,39 +5,48 @@ namespace Interface_communication;
 /// <summary>
 /// Message envoyé par le serveur
 /// </summary>
-public class MessageServeur
+public class MessageServeur : Message
 {
-    private readonly string message;
-    private readonly string[] arguments; // Les arguments de la réponse
-    
-    /// <summary>
-    /// Message envoyé par le serveur
-    /// </summary>
-    public string Message => message;
-
-    /// <summary>
-    /// Arguments associés au message du serveur
-    /// </summary>
-    public string[] Arguments => arguments;
-
     /// <summary>
     /// Indique si le message est une erreur serveur
     /// </summary>
-    public bool EstErreur => message.StartsWith(Config.MessageErreurServeur);
+    public bool EstErreur => VerbeMessage.StartsWith(Config.MessageErreurServeur);
+
+    /// <summary>
+    /// Indique le "verbe" du message
+    /// </summary>
+    public new string VerbeMessage => base.VerbeMessage;
+
+    /// <summary>
+    /// Arguments du message du serveur
+    /// </summary>
+    public new string[] Arguments => base.Arguments.ToArray();
 
     /// <summary>
     /// Instancie un message du serveur
     /// </summary>
     /// <param name="messageBrut">Chaîne de caractère brute envoyée par le serveur</param>
-    internal MessageServeur(string messageBrut)
+    internal MessageServeur(string messageBrut) : base(GetVerbe(messageBrut), GetArguments(messageBrut)) { }
+
+    private static string GetVerbe(string messageBrut)
     {
-        var messageParse = messageBrut.Split(Config.ArgumentsDelimiter);
-        this.message = messageParse[0];
-        this.arguments = messageParse.Skip(1).ToArray();
+        return messageBrut.Split(Config.ArgumentsDelimiter)[0];
     }
 
-    public override string ToString()
+    private static string[] GetArguments(string messageBrut)
     {
-        return arguments.Length > 0 ? $"({Message}{string.Join(", ", Arguments)})" : Message;
+        var messageParse = messageBrut.Split(Config.ArgumentsDelimiter);
+        return messageParse.Skip(1).ToArray();
+    }
+
+    // On cache les méthodes d'ajout d'arguments : on ne veut pas qu'un message serveur puisse être modifié à posteriori
+    private new void AddArgument(string argument)
+    {
+        base.AddArgument(argument);
+    }
+    
+    private new void AddArguments(string[] newArguments)
+    {
+        base.AddArguments(newArguments);   
     }
 }

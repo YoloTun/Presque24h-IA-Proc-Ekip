@@ -18,9 +18,4 @@ public class ReponseServeur : MessageServeur
     /// Message original
     /// </summary>
     public Message MessageIa => messageIA;
-
-    /// <summary>
-    /// Réponse du serveur
-    /// </summary>
-    public string Reponse => base.Message;
 }
