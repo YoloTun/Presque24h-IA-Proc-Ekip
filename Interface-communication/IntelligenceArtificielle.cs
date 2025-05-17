@@ -28,7 +28,7 @@ public abstract class IntelligenceArtificielle
     /// Protocole de démarrage de la partie (avant que l'enchaînement des tours ne commence)
     /// </summary>
     /// <returns>Liste des instructions à envoyer au serveur lors du démarrage de la partie</returns>
-    public List<Message> GetProtocoleDemarragePartie()
+    public virtual List<Message> GetProtocoleDemarragePartie()
     {
         return [new Message("INSCRIRE")];
     }
