@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface-communication", "Interface-communication\Interface-communication.csproj", "{517C1FB7-2969-4F11-989B-3C942C49BE0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ekip", "Ekip\Ekip.csproj", "{FA80F4A3-DD9B-4B6E-B1B7-5DDF3E1CE878}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,15 @@ Global
 		{517C1FB7-2969-4F11-989B-3C942C49BE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{517C1FB7-2969-4F11-989B-3C942C49BE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{517C1FB7-2969-4F11-989B-3C942C49BE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA80F4A3-DD9B-4B6E-B1B7-5DDF3E1CE878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA80F4A3-DD9B-4B6E-B1B7-5DDF3E1CE878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA80F4A3-DD9B-4B6E-B1B7-5DDF3E1CE878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA80F4A3-DD9B-4B6E-B1B7-5DDF3E1CE878}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {064C0401-AB35-45D9-B5CA-25BBD78395E6}
 	EndGlobalSection
 EndGlobal
